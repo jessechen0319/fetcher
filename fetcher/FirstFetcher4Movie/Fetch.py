@@ -1,5 +1,5 @@
-
 import requests
+
 
 class IPFetch:
     _first = [x for x in range(256)]
@@ -17,22 +17,26 @@ class IPFetch:
 
     def fetchHost(self):
         IPAdresses = self.generateIPAdress()
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36 Edge/15.15063'}
         for ip in IPAdresses:
             for port in range(10000):
                 host = ip + ":" + str(port)
                 try:
-                    r = requests.get("http://"+host + "/", headers=headers)
+                    r = requests.get("http://" + host + "/", headers=headers)
                     if r.status_code < 300:
-                        print("works: http://"+host+"/")
+                       self.writeResultToFile("http://" + host + "/")
                     else:
-                        r = requests.get("https://"+host, headers=headers)
+                        r = requests.get("https://" + host, headers=headers)
                         if r.status_code < 300:
-                            print("works: https://" + host+"/")
-                except :
+                            self.writeResultToFile("https://"+host+"/")
+                except:
                     pass
 
+    def writeResultToFile(self, host):
+        with open("hosts", "a") as f:
+            f.writelines((host, "\n"))
 
 
 a = IPFetch()
-a.fetchHost()
+a.writeResultToFile("http://hello.jesse")
