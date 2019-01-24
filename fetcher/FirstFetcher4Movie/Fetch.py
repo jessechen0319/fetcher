@@ -39,4 +39,4 @@ class IPFetch:
 
 
 a = IPFetch()
-a.writeResultToFile("http://hello.jesse")
+a.fetchHost()
