@@ -13,7 +13,6 @@ class IPFetch:
                 for c in self._third:
                     for d in self._fourth:
                         yield str(a) + "." + str(a) + "." + str(c) + "." + str(d)
-        return "done"
 
     def fetchHost(self):
         IPAdresses = self.generateIPAdress()
